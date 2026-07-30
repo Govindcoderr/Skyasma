@@ -8,6 +8,8 @@ load_dotenv()
 @dataclass(frozen=True)
 class Settings:
 
+    REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+
     #############################
     # LLM
     #############################

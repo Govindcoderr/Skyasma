@@ -1,34 +1,30 @@
+import asyncio
+
 from src.graph.workflow import Workflow
 
-workflow = Workflow()
 
-while True:
+async def main():
+    workflow = Workflow()
 
-    text = input("User : ")
+    try:
+        while True:
+            text = await asyncio.to_thread(input, "User : ")
 
-    if text.lower() == "exit":
-        break
+            if text.lower() == "exit":
+                break
 
-    result = workflow.invoke(text)
+            result = await workflow.ainvoke(text)
 
-    print()
+            print("\nIntent\n", result["intent"])
+            print("\nConfidence\n", result["confidence"])
+            print("\nPlan")
+            for step in result["plan"]:
+                print("-", step)
+            print("\nFinal Response\n", result.get("final_response"), "\n")
 
-    print("Intent")
+    finally:
+        await workflow.aclose()
 
-    print(result["intent"])
 
-    print()
-
-    print("Confidence")
-
-    print(result["confidence"])
-
-    print()
-
-    print("Plan")
-
-    for step in result["plan"]:
-
-        print("-", step)
-
-    print()
+if __name__ == "__main__":
+    asyncio.run(main())
