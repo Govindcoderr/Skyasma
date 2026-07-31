@@ -11,6 +11,28 @@ class Settings:
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
     #############################
+    # LLM Providers
+    #############################
+
+    LLM_TEMPERATURE: float = float(os.getenv("LLM_TEMPERATURE", "0.2"))
+
+    # Tool-calling capable model (used by Executor's tool-selection step)
+    LLM_MODEL: str = os.getenv("LLM_MODEL", "")
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+
+    # Q0 native tool-calling endpoint (OpenAI-compatible)
+    Q0_TOOLS_MODEL: str = os.getenv("Q0_TOOLS_MODEL", "")
+    Q0_tools_URL: str = os.getenv("Q0_TOOLS_URL", "")
+    Q0_dummy_KEY: str = os.getenv("Q0_DUMMY_KEY", "not-needed")
+    Q0_MAX_TOKENS: int = int(os.getenv("Q0_MAX_TOKENS", "1024"))
+
+    # Plain chat model (Supervisor / Planner / Responder — no tools)
+    USE_Q0_MODEL: bool = os.getenv("USE_Q0_MODEL", "false").lower() == "true"
+    Q0_API_URL: str = os.getenv("Q0_API_URL", "")
+    Q0_TOP_P: float = float(os.getenv("Q0_TOP_P", "1.0"))
+    LLM_MODEL_FAST: str = os.getenv("LLM_MODEL_FAST", "llama-3.1-8b-instant")
+
+    #############################
     # LLM
     #############################
 
