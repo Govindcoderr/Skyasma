@@ -1,10 +1,10 @@
 import asyncio
 
-from agents.supervisor import SupervisorAgent
-from agents.planner import PlannerAgent
-from agents.executor import ExecutorAgent
-from agents.responder import ResponderAgent
-from agents.state import AgentState
+from src.agents.supervisor import SupervisorAgent
+from src.agents.planner import PlannerAgent
+from src.agents.executor import ExecutorAgent
+from src.agents.responder import ResponderAgent
+from src.agents.state import AgentState
 
 
 supervisor = SupervisorAgent()

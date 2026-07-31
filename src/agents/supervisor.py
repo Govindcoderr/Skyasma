@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from agents.base import BaseAgent
-from agents.state import AgentState
+from src.agents.base import BaseAgent
+from src.agents.state import AgentState
 
 
 SUPERVISOR_PROMPT = """

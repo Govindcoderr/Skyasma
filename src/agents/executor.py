@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from config import settings, MCP_SERVERS
-from mcp.client import MCPClient
-from mcp.schemas import MCPServerConfig, MCPToolResult
-from mcp.exceptions import MCPException
-from llm.provider import get_llm
-from llm.prompts import TOOL_SELECTION_PROMPT, render_tools
-from llm.output_parser import parse_json, OutputParseError
-from agents.state import AgentState
+from src.mcp_core.client import MCPClient
+from src.mcp_core.schemas import MCPServerConfig, MCPToolResult
+from src.mcp_core.exceptions import MCPException
+from src.llm.provider import get_llm
+from src.llm.prompts import TOOL_SELECTION_PROMPT, render_tools
+from src.llm.output_parser import parse_json, OutputParseError
+from src.agents.state import AgentState
 
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -35,7 +35,7 @@ def _get_client(server_name: str) -> MCPClient:
                 command=cfg["command"],
                 args=cfg.get("args", []),
                 env=cfg.get("env", {}),
-                timeout=settings.MCP_TIMEOUT,
+                timeout=settingsmcp_core_TIMEOUT,
             )
         )
     return _clients[server_name]

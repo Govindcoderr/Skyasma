@@ -5,7 +5,7 @@ from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
 
 from config import settings
-from llm.custom_llm import Q0CustomLLM
+from src.llm.custom_llm import Q0CustomLLM
 
 
 def _get_groq_key() -> str:

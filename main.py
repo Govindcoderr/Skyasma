@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 
-from graph.workflow import Workflow
+from src.graph.workflow import Workflow
 from api.schemas import ChatRequest, ChatResponse, HealthResponse
 
 

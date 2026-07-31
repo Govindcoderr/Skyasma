@@ -4,11 +4,11 @@ import asyncio
 from contextlib import AsyncExitStack
 from typing import Any
 
-from mcp import ClientSession
-from mcp import StdioServerParameters
-from mcp.client.stdio import stdio_client
+from src.mcp_core import ClientSession
+from src.mcp_core import StdioServerParameters
+from src.mcp_core.client.stdio import stdio_client
 
-from mcp.schemas import (
+from src.mcp_core.schemas import (
     MCPServerConfig,
     MCPTool,
     MCPParameter,

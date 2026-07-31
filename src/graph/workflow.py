@@ -1,4 +1,4 @@
-from graph.builder import WorkflowBuilder
+from src.graph.builder import WorkflowBuilder
 from memory.checkpoint import get_checkpointer
 
 from agents.state import create_initial_state

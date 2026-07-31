@@ -1,10 +1,10 @@
 from langgraph.graph import StateGraph
 from langgraph.graph import END
 
-from agents.state import AgentState
+from src.agents.state import AgentState
 
-from graph.nodes import supervisor_node, planner_node, executor_node, responder_node
-from graph.router import route_after_supervisor, route_after_executor
+from src.graph.nodes import supervisor_node, planner_node, executor_node, responder_node
+from src.graph.router import route_after_supervisor, route_after_executor
 
 
 class WorkflowBuilder:
