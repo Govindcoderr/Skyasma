@@ -1,17 +1,31 @@
-langgraph>=0.2.50
-langchain>=0.3.10
-langchain-core>=0.3.25
-langchain-openai>=0.2.12
-langchain-community>=0.3.10
-pydantic>=2.10.4
-python-dotenv>=1.0.1
-typing_extensions>=4.12.2
+# --- Core, needed by the simplified main.py ---
 fastapi>=0.115.6
 uvicorn>=0.34.0
-orjson>=3.10.12
-httpx>=0.28.1
-tenacity>=9.0.0
-redis>=5.0.0
-langgraph-checkpoint-redis>=0.1.0
-langchain-groq>=0.2.1
-requests>=2.32.0
+pydantic>=2.10.4
+python-dotenv>=1.0.1
+langchain-core>=0.3.25
+langchain-openai>=0.2.12
+
+# --- MCP SDK (the real one — this is what src/mcp_core/client.py imports) ---
+# PINNED to v1.x: v2.0.0 (released 2026-07-28) is a breaking rewrite —
+# FastMCP was renamed to MCPServer, moved to mcp.server.mcpserver, and
+# field names changed (isError -> is_error, etc). Our code targets v1.
+mcp>=1.27,<2
+
+# --- Gmail API (used by servers/gmail/server.py) ---
+google-api-python-client>=2.149.0
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.2.1
+
+# --- Kept for when you bring the full multi-agent graph back online ---
+# langgraph>=0.2.50
+# langchain>=0.3.10
+# langchain-community>=0.3.10
+# langchain-groq>=0.2.1
+# redis>=5.0.0
+# langgraph-checkpoint-redis>=0.1.0
+# typing_extensions>=4.12.2
+# orjson>=3.10.12
+# httpx>=0.28.1
+# tenacity>=9.0.0
+# requests>=2.32.0

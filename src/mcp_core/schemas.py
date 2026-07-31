@@ -1,11 +1,19 @@
 """
-Core MCP Schemas
+Core MCP Schemas (renamed package: mcp_core)
 
 Shared across the entire system.
 
 These classes are intentionally independent from
 LangGraph so they can also be reused in REST APIs,
 CLI applications, and tests.
+
+NOTE: this package used to be named `mcp`, which collided with the
+official `mcp` SDK (the one providing ClientSession, StdioServerParameters,
+stdio_client). That collision caused:
+
+    ImportError: cannot import name 'ClientSession' from 'mcp' (unknown location)
+
+Renaming to `mcp_core` fixes it permanently.
 """
 
 from __future__ import annotations
@@ -162,4 +170,3 @@ class ExecutionResponse(BaseModel):
     data: Any = None
 
     error: Optional[str] = None
-    

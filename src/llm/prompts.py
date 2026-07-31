@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from mcp.schemas import MCPTool
+from mcp_core.schemas import MCPTool
 
 
 def render_tools(tools: list[MCPTool]) -> str:

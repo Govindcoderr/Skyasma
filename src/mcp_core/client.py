@@ -1,21 +1,25 @@
 from __future__ import annotations
 
-import asyncio
+import os
+import sys
 from contextlib import AsyncExitStack
 from typing import Any
 
-from src.mcp_core import ClientSession
-from src.mcp_core import StdioServerParameters
-from src.mcp_core.client.stdio import stdio_client
+# These come from the REAL, pip-installed `mcp` SDK.
+# This import now works because our own package is called `mcp_core`,
+# not `mcp` — so there's nothing left to shadow it.
+from mcp import ClientSession
+from mcp import StdioServerParameters
+from mcp.client.stdio import stdio_client
 
-from src.mcp_core.schemas import (
+from mcp_core.schemas import (
     MCPServerConfig,
     MCPTool,
     MCPParameter,
     MCPToolResult,
 )
 
-from mcp.exceptions import (
+from mcp_core.exceptions import (
     MCPConnectionError,
     MCPExecutionError,
 )
@@ -42,24 +46,33 @@ class MCPClient:
         self.exit_stack = AsyncExitStack()
         self.connected = False
 
-
     # CONNECT
     async def connect(self):
 
         if self.connected:
             return
 
+        # IMPORTANT: merge with the parent process's environment.
+        # Passing an empty/partial dict here REPLACES the child's env
+        # entirely (no PATH, no VIRTUAL_ENV, etc.), which makes it fail
+        # to start (or start with the wrong Python / missing packages)
+        # and show up as "Connection closed" during initialize().
+        merged_env = {**os.environ, **(self.config.env or {})}
+
         params = StdioServerParameters(
             command=self.config.command,
             args=self.config.args,
-            env=self.config.env,
+            env=merged_env,
         )
 
         try:
 
             read_stream, write_stream = (
                 await self.exit_stack.enter_async_context(
-                    stdio_client(params)
+                    # errlog=sys.stderr so the child server's own crash
+                    # traceback (import errors, etc.) actually shows up
+                    # in your uvicorn console instead of being swallowed.
+                    stdio_client(params, errlog=sys.stderr)
                 )
             )
 
